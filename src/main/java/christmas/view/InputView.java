@@ -9,6 +9,9 @@ import java.util.List;
 import java.util.Objects;
 
 public class InputView {
+    private static final int MENU_MIN_COUNT = 1;
+    private static final int TOTAL_MENU_MAX_COUNT = 20;
+
     public String readDate() {
         System.out.println("12월 중 식당 예상 방문 날짜는 언제인가요? (숫자만 입력해 주세요!)");
         String input = Console.readLine();
@@ -54,15 +57,15 @@ public class InputView {
         }
     }
 
-    private void countCheck(String[] input) {
-        int totalSum = 0;
-        for (int i = 1; i < input.length; i += 2) {
-            int convertInput = Integer.parseInt(input[i]);
-            totalSum += convertInput;
-            if (convertInput < 1) {
+    private void countCheck(String[] menu) {
+        int totalCount = 0;
+        for (int i = 1; i < menu.length; i += 2) {
+            int menuCount = Integer.parseInt(menu[i]);
+            totalCount += menuCount;
+            if (menuCount < MENU_MIN_COUNT) {
                 throw new IllegalArgumentException();
             }
-            if (totalSum > 20) {
+            if (totalCount > TOTAL_MENU_MAX_COUNT) {
                 throw new IllegalArgumentException();
             }
         }

@@ -9,6 +9,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class EventPlanner {
+    private static final int BADGE_CRITERIA_STAR = 5_000;
+    private static final int BADGE_CRITERIA_TREE = 10_000;
+    private static final int BADGE_CRITERIA_SANTA = 20_000;
+
     InputView inputView = new InputView();
     OutputView outputView = new OutputView();
     Order order;
@@ -57,8 +61,9 @@ public class EventPlanner {
 
     private int judgeGive() {
         Map<Event, Integer> sale = sales.getSale();
+        int giftPrice = Event.GIVE.getBenefit();
         if (sale.get(Event.GIVE) != null) {
-            return sale.get(Event.GIVE) / 25_000;
+            return sale.get(Event.GIVE) / giftPrice;
         }
         return 0;
     }
@@ -72,13 +77,13 @@ public class EventPlanner {
     }
 
     private String judgeBadge(int saleSum) {
-        if (saleSum >= 20_000) {
+        if (saleSum >= BADGE_CRITERIA_SANTA) {
             return "산타";
         }
-        if (saleSum >= 10_000) {
+        if (saleSum >= BADGE_CRITERIA_TREE) {
             return "트리";
         }
-        if (saleSum >= 5_000) {
+        if (saleSum >= BADGE_CRITERIA_STAR) {
             return "별";
         }
         return "없음";
