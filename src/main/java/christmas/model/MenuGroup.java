@@ -3,7 +3,6 @@ package christmas.model;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 
 public enum MenuGroup {
     MAIN_DISH("메인메뉴", Arrays.asList(Menu.T_BONE_STEAK, Menu.BARBECUE_LIB, Menu.SEAFOOD_PASTA, Menu.CHRISTMAS_PASTA)),
