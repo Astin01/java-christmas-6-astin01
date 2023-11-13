@@ -35,4 +35,8 @@ public enum MenuGroup {
         return this.menuTitle;
     }
 
+    public List<Menu> getMenuList() {
+        return this.menuList;
+    }
+
 }
