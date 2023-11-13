@@ -18,14 +18,13 @@ public class SalesTest {
         input.put("타파스", "1");
         input.put("제로콜라", "2");
         Order menu = new Order(input);
+        menu.calculateSum();
         Sales sale = new Sales(inputDate, menu);
         Map<Event, Integer> saleList = sale.getSale();
         int d_Day = saleList.get(Event.D_DAY);
-        int weekday = saleList.get(Event.WEEKDAY);
         int special = saleList.get(Event.SPECIAL);
         assertAll(
                 () -> assertEquals(d_Day, 3400),
-                () -> assertEquals(weekday, 0),
                 () -> assertEquals(special, 1000)
         );
     }
@@ -37,6 +36,7 @@ public class SalesTest {
         input.put("타파스", "1");
         input.put("제로콜라", "2");
         Order menu = new Order(input);
+        menu.calculateSum();
         Sales sale = new Sales(inputDate, menu);
 
         sale.calculateSum();

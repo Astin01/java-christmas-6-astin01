@@ -13,6 +13,7 @@ public class OrderTest {
         input.put("타파스", "1");
         input.put("제로콜라", "2");
         Order menu = new Order(input);
+        menu.calculateSum();
 
         int sum = menu.getSum();
 
