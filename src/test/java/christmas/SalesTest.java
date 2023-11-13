@@ -2,10 +2,8 @@ package christmas;
 
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import christmas.model.Event;
-import christmas.model.Menu;
 import christmas.model.Order;
 import christmas.model.Sales;
 import java.util.HashMap;

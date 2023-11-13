@@ -14,7 +14,9 @@ public class Sales {
 
     public Sales(String input, Order order) {
         int convertInput = parseInt(input);
-        calculateSales(convertInput, order);
+        if (saleSum >= 10_000) {
+            calculateSales(convertInput, order);
+        }
     }
 
     private void calculateSales(int input, Order order) {
@@ -86,7 +88,7 @@ public class Sales {
         if (input % 7 != 2 && input % 7 != 3) {
             int benefit = Event.WEEKDAY.getBenefit();
             benefit *= dessertCount;
-            if(dessertCount>0){
+            if (dessertCount > 0) {
                 sale.put(Event.WEEKDAY, benefit);
             }
         }
@@ -96,7 +98,7 @@ public class Sales {
         if (input % 7 == 2 || input % 7 == 3) {
             int benefit = Event.WEEKEND.getBenefit();
             benefit *= mainCount;
-            if(mainCount>0){
+            if (mainCount > 0) {
                 sale.put(Event.WEEKEND, benefit);
             }
         }
@@ -112,8 +114,8 @@ public class Sales {
     private void isGive(Order order) {
         int sum = order.getSum();
         if (sum > 120_000) {
-            int price = sum/120_000;
-            sale.put(Event.GIVE, price*25_000);
+            int price = sum / 120_000;
+            sale.put(Event.GIVE, price * 25_000);
         }
     }
 }
