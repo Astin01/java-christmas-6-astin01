@@ -1,10 +1,12 @@
 package christmas.view;
 
 import christmas.model.Event;
+import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.Map;
 
 public class OutputView {
+    DecimalFormat df = new DecimalFormat("###,###");
     public void showStartBanner() {
         System.out.println("안녕하세요! 우테코 식당 12월 이벤트 플래너입니다.");
     }
@@ -21,8 +23,9 @@ public class OutputView {
     }
 
     public void showTotalBeforeSale(int sum) {
+        String totalBeforeBenefit = df.format(sum);
         System.out.println("\n<할인 전 총주문 금액>");
-        System.out.println(sum + "원");
+        System.out.println(totalBeforeBenefit + "원");
     }
 
     public void showGiveBanner(int give) {
@@ -57,17 +60,19 @@ public class OutputView {
     }
 
     public void showTotalBenefit(int saleSum) {
+        String totalBenefit = df.format(saleSum);
         System.out.println("\n<총혜택 금액>");
         if (saleSum == 0) {
-            System.out.println(saleSum + "원");
+            System.out.println(totalBenefit + "원");
             return;
         }
-        System.out.println("-" + saleSum + "원");
+        System.out.println("-" + totalBenefit + "원");
     }
 
     public void showTotalPrice(int totalSum) {
+        String afterBenefit = df.format(totalSum);
         System.out.println("\n<할인 후 예상 결제 금액>");
-        System.out.println(totalSum + "원");
+        System.out.println(afterBenefit + "원");
     }
 
     public void showEventBadge(String badge) {
