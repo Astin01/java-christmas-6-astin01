@@ -10,11 +10,20 @@ import java.util.Map;
 
 public class Sales {
     Map<Event, Integer> sale = new EnumMap<>(Event.class);
+    private static final int SALE_CRITERIA = 10_000;
+    private static final int D_DAY_CRITERIA = 26;
+    private static final int D_DAY_BENEFIT = 100;
+    private static final int CHRISTMAS = 25;
+    private static final int GIFT_CRITERIA = 12_000;
+
+    private final Map<Event, Integer> sale = new EnumMap<>(Event.class);
     private int saleSum;
 
     public Sales(String input, Order order) {
         int convertInput = parseInt(input);
         if (saleSum >= 10_000) {
+        int orderSum = order.getSum();
+        if (orderSum >= SALE_CRITERIA) {
             calculateSales(convertInput, order);
         }
     }
@@ -75,13 +84,12 @@ public class Sales {
         return 0;
     }
 
-    private void isD_Day(int input) {
-        if (input >= 26) {
-            return;
+    private void isD_Day(int day) {
+        if (day <= D_DAY_CRITERIA) {
+            int benefit = Event.D_DAY.getBenefit();
+            benefit += (day - 1) * D_DAY_BENEFIT;
+            sale.put(Event.D_DAY, benefit);
         }
-        int benefit = Event.D_DAY.getBenefit();
-        benefit += (input - 1) * 100;
-        sale.put(Event.D_DAY, benefit);
     }
 
     private void isWeekDay(int input, int dessertCount) {
@@ -105,17 +113,18 @@ public class Sales {
     }
 
     private void isSpecial(int input) {
-        if (input % 7 == 3 || input == 25) {
+        if (input % 7 == 3 || input == CHRISTMAS) {
             int benefit = Event.SPECIAL.getBenefit();
             sale.put(Event.SPECIAL, benefit);
         }
     }
 
     private void isGive(Order order) {
-        int sum = order.getSum();
-        if (sum > 120_000) {
-            int price = sum / 120_000;
-            sale.put(Event.GIVE, price * 25_000);
+        int orderSum = order.getSum();
+        int giftPrice = Event.GIVE.getBenefit();
+        if (orderSum > GIFT_CRITERIA) {
+            int giftNum = orderSum / GIFT_CRITERIA;
+            sale.put(Event.GIVE, giftNum * giftPrice);
         }
     }
 }
