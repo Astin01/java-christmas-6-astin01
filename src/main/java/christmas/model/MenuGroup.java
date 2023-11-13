@@ -11,8 +11,8 @@ public enum MenuGroup {
     DESSERT("디저트", Arrays.asList(Menu.CHOCOLATE_CAKE, Menu.ICE_CREAM)),
     DRINK("음료", Arrays.asList(Menu.ZERO_COLA, Menu.RED_WINE, Menu.CHAMPAGNE)),
     EMPTY("없음", Collections.EMPTY_LIST);
-    private String menuTitle;
-    private List<Menu> menuList;
+    private final String menuTitle;
+    private final List<Menu> menuList;
 
     MenuGroup(String menuTitle, List<Menu> menuList) {
         this.menuTitle = menuTitle;
