@@ -81,4 +81,10 @@ public class EventPlanner {
         }
         return "없음";
     }
+
+    private void putInput(String[] menu) {
+        for (int i = 0; i < menu.length; i += 2) {
+            menuInput.put(menu[i], menu[i + 1]);
+        }
+    }
 }
