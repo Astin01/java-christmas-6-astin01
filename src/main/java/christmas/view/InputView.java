@@ -14,43 +14,43 @@ public class InputView {
 
     public String readDate() {
         System.out.println("12월 중 식당 예상 방문 날짜는 언제인가요? (숫자만 입력해 주세요!)");
-        String input = Console.readLine();
+        String date = Console.readLine();
         try {
-            int convertInput = Integer.parseInt(input);
-            isInRange(convertInput);
+            int convertDate = Integer.parseInt(date);
+            isInRange(convertDate);
         } catch (IllegalArgumentException error) {
             System.out.println("[ERROR] 유효하지 않은 날짜입니다. 다시 입력해 주세요.");
             readDate();
         }
-        return input;
+        return date;
     }
 
-    private void isInRange(int input) {
-        if (input < 1 || input > 31) {
+    private void isInRange(int date) {
+        if (date < 1 || date > 31) {
             throw new IllegalArgumentException();
         }
     }
 
     public String[] readMenu() {
         System.out.println("주문하실 메뉴를 메뉴와 개수를 알려 주세요. (e.g. 해산물파스타-2,레드와인-1,초코케이크-1)");
-        String[] input = null;
+        String[] menu = null;
         try {
-            input = Console.readLine().split("[,\\-]");
-            menuCheck(input);
-            countCheck(input);
-            menuDupCheck(input);
-            checkOnlyDrink(input);
+            menu = Console.readLine().split("[,\\-]");
+            menuCheck(menu);
+            countCheck(menu);
+            menuDupCheck(menu);
+            checkOnlyDrink(menu);
         } catch (IllegalArgumentException error) {
             System.out.println("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
             readMenu();
         }
-        return input;
+        return menu;
     }
 
-    private void menuCheck(String[] input) {
-        for (int i = 0; i < input.length; i += 2) {
+    private void menuCheck(String[] menu) {
+        for (int i = 0; i < menu.length; i += 2) {
             int finalI = i;
-            boolean isName = Arrays.stream(Menu.values()).anyMatch(v -> v.getName().equals(input[finalI]));
+            boolean isName = Arrays.stream(Menu.values()).anyMatch(v -> v.getName().equals(menu[finalI]));
             if (!isName) {
                 throw new IllegalArgumentException();
             }
@@ -72,9 +72,12 @@ public class InputView {
     }
 
     private void menuDupCheck(String[] input) {
-        HashSet<String> setInput = new HashSet<>(Arrays.asList(input));
+        HashSet<String> setInput = new HashSet<>();
 
-        if (input.length != setInput.size()) {
+        for (int i = 0; i < input.length; i += 2) {
+            setInput.add(input[i]);
+        }
+        if (input.length / 2 != setInput.size()) {
             throw new IllegalArgumentException();
         }
     }

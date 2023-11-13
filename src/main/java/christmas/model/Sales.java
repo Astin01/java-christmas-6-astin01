@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.Map;
 
 public class Sales {
-    Map<Event, Integer> sale = new EnumMap<>(Event.class);
     private static final int SALE_CRITERIA = 10_000;
     private static final int D_DAY_CRITERIA = 26;
     private static final int D_DAY_BENEFIT = 100;
@@ -21,7 +20,6 @@ public class Sales {
 
     public Sales(String input, Order order) {
         int convertInput = parseInt(input);
-        if (saleSum >= 10_000) {
         int orderSum = order.getSum();
         if (orderSum >= SALE_CRITERIA) {
             calculateSales(convertInput, order);
@@ -33,6 +31,7 @@ public class Sales {
         List<Integer> count = countOrder(orderList);
         int dessertCount = count.get(0);
         int mainCount = count.get(1);
+
         isD_Day(input);
         isWeekDay(input, dessertCount);
         isWeekend(input, mainCount);
