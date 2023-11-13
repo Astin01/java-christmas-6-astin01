@@ -16,10 +16,12 @@ public enum Menu {
 
     final private int price;
     final private String convertPrice;
+    final private String name;
 
-    Menu(int price, String convertPrice) {
+    Menu(int price, String convertPrice, String name) {
         this.price = price;
         this.convertPrice = convertPrice;
+        this.name = name;
     }
 
     public int getPrice() {
@@ -30,4 +32,8 @@ public enum Menu {
         return convertPrice;
     }
 
+    public String getName() {
+        return name;
+    }
+    
 }
