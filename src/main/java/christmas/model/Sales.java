@@ -74,7 +74,7 @@ public class Sales {
     }
 
     private void isD_Day(int input) {
-        if (input > 26) {
+        if (input >= 26) {
             return;
         }
         int benefit = Event.D_DAY.getBenefit();
@@ -86,7 +86,9 @@ public class Sales {
         if (input % 7 != 2 && input % 7 != 3) {
             int benefit = Event.WEEKDAY.getBenefit();
             benefit *= dessertCount;
-            sale.put(Event.WEEKDAY, benefit);
+            if(dessertCount>0){
+                sale.put(Event.WEEKDAY, benefit);
+            }
         }
     }
 
@@ -94,7 +96,9 @@ public class Sales {
         if (input % 7 == 2 || input % 7 == 3) {
             int benefit = Event.WEEKEND.getBenefit();
             benefit *= mainCount;
-            sale.put(Event.WEEKEND, benefit);
+            if(mainCount>0){
+                sale.put(Event.WEEKEND, benefit);
+            }
         }
     }
 
@@ -108,7 +112,8 @@ public class Sales {
     private void isGive(Order order) {
         int sum = order.getSum();
         if (sum > 120_000) {
-            sale.put(Event.GIVE, 25_000);
+            int price = sum/120_000;
+            sale.put(Event.GIVE, price*25_000);
         }
     }
 }
