@@ -1,7 +1,11 @@
 package christmas.view;
 
 import christmas.model.Event;
+import christmas.model.Menu;
+import christmas.model.MenuGroup;
+import christmas.model.Sales;
 import java.text.DecimalFormat;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -28,7 +32,7 @@ public class OutputView {
         System.out.println(totalBeforeBenefit + "원");
     }
 
-    public void showGiveBanner(int give) {
+    public void showGiveBanner(Sales sales) {
         System.out.println("\n<증정 메뉴>");
         int give = judgeGive(sales);
         if (give > 0) {
@@ -49,23 +53,19 @@ public class OutputView {
 
     public void showBenefitBanner(Map<Event, Integer> sale) {
         System.out.println("\n<혜택 내역>");
-        if (sale.containsKey(Event.D_DAY)) {
-            System.out.println("크리스마스 디데이 할인: -" + sale.get(Event.D_DAY) + "원");
-        }
-        if (sale.containsKey(Event.WEEKDAY)) {
-            System.out.println("평일 할인: -" + sale.get(Event.WEEKDAY) + "원");
-        }
-        if (sale.containsKey(Event.WEEKEND)) {
-            System.out.println("주말 할인: -" + sale.get(Event.WEEKEND) + "원");
-        }
-        if (sale.containsKey(Event.SPECIAL)) {
-            System.out.println("특별 할인: -" + sale.get(Event.SPECIAL) + "원");
-        }
-        if (sale.containsKey(Event.GIVE)) {
-            System.out.println("증정 이벤트: -" + sale.get(Event.GIVE) + "원");
-        }
-        if (sale.isEmpty()) {
+        Arrays.stream(Event.values())
+                .forEach(event -> judgeBenefitBanner(sale,event));
+        if(sale.isEmpty()){
             System.out.println("없음");
+        }
+    }
+
+    private void judgeBenefitBanner(Map<Event, Integer> sale,Event event) {
+        if(sale.containsKey(event)){
+            String eventName = event.getName();
+            int salePrice = sale.get(event);
+            String convertSalePrice = df.format(salePrice);
+            System.out.println(eventName+": -"+convertSalePrice+"원");
         }
     }
 
@@ -89,5 +89,4 @@ public class OutputView {
         System.out.println("\n<12월 이벤트 배지>");
         System.out.println(badge);
     }
-
 }
