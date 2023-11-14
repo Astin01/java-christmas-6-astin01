@@ -33,18 +33,28 @@ public class InputView {
 
     public String[] readMenu() {
         System.out.println("주문하실 메뉴를 메뉴와 개수를 알려 주세요. (e.g. 해산물파스타-2,레드와인-1,초코케이크-1)");
-        String[] menu = null;
+        String[] menu;
+        HashMap<String, String> menuInput = new HashMap<>();
         try {
             menu = Console.readLine().split("[,\\-]");
             menuCheck(menu);
             countCheck(menu);
             menuDupCheck(menu);
             checkOnlyDrink(menu);
+            putMenuInput(menu,menuInput);
         } catch (IllegalArgumentException error) {
             System.out.println("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
             readMenu();
         }
         return menu;
+        return menuInput;
+    }
+
+    private void putMenuInput(String[] menu,HashMap<String, String> menuInput) {
+        for (int i = 0; i < menu.length; i += 2) {
+            menuInput.put(menu[i], menu[i + 1]);
+        }
+    }
     }
 
     private void menuCheck(String[] menu) {
