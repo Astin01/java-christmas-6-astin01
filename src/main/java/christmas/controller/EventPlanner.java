@@ -4,6 +4,7 @@ import christmas.model.Badge;
 import christmas.model.Event;
 import christmas.model.Order;
 import christmas.model.Sales;
+import christmas.util.Sum;
 import christmas.view.InputView;
 import christmas.view.OutputView;
 import java.util.HashMap;
@@ -13,7 +14,6 @@ public class EventPlanner {
     InputView inputView = new InputView();
     OutputView outputView = new OutputView();
     Order order;
-    HashMap<String, String> menuInput = new HashMap<>();
     Sales sales;
 
     public void run() {
@@ -27,45 +27,33 @@ public class EventPlanner {
         String date = inputView.readDate();
         HashMap<String, String> menu = inputView.readMenu();
 
-        order = new Order(menuInput);
-        order.calculateSum();
+        order = new Order(menu);
         sales = new Sales(date, order);
 
         outputView.showEventBanner(date);
+        outputView.showMenuList(menu);
     }
 
     public void startPlanner() {
-        outputView.showMenuList(menuInput);
-        int sum = order.getSum();
-        outputView.showTotalBeforeSale(sum);
-        int give = judgeGive();
-        outputView.showGiveBanner(give);
+        int sum = Sum.calculateOrderSum(order.getOrder());
         Map<Event, Integer> sale = sales.getSale();
+
+        outputView.showTotalBeforeSale(sum);
+        outputView.showGiveBanner(sales);
         outputView.showBenefitBanner(sale);
-        sales.calculateSum();
     }
 
     public void endPlanner() {
-        int saleSum = sales.getSaleSum();
-        int sum = order.getSum();
-        int totalSum = calculateTotalSum(saleSum, sum);
-        outputView.showTotalBenefit(saleSum);
-        outputView.showTotalPrice(totalSum);
-        String badge = judgeBadge(saleSum);
-        outputView.showEventBadge(badge);
-    }
+        int orderSum = Sum.calculateOrderSum(order.getOrder());
+        int saleSum = Sum.calculateSaleSum(sales.getSale());
+        int totalSum = Sum.calculateTotalOrderSum(orderSum,saleSum,sales);
 
         Badge badge= new Badge(saleSum);
         String badgeGrade = badge.getBadgeGrade();
 
-    private int calculateTotalSum(int saleSum, int sum) {
-        Map<Event, Integer> sale = sales.getSale();
-        if (sale.get(Event.GIVE) != null) {
-            return sum - saleSum + sale.get(Event.GIVE);
-        }
-        return sum - saleSum;
-    }
-
+        outputView.showTotalBenefit(saleSum);
+        outputView.showTotalPrice(totalSum);
+        outputView.showEventBadge(badgeGrade);
     }
 
 }

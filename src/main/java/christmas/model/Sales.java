@@ -2,6 +2,7 @@ package christmas.model;
 
 import static java.lang.Integer.parseInt;
 
+import christmas.util.Sum;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.EnumMap;
@@ -16,11 +17,10 @@ public class Sales {
     private static final int GIFT_CRITERIA = 12_000;
 
     private final Map<Event, Integer> sale = new EnumMap<>(Event.class);
-    private int saleSum;
 
     public Sales(String input, Order order) {
         int convertInput = parseInt(input);
-        int orderSum = order.getSum();
+        int orderSum = Sum.calculateOrderSum(order.getOrder());
         if (orderSum >= SALE_CRITERIA) {
             calculateSales(convertInput, order);
         }
@@ -32,29 +32,8 @@ public class Sales {
         int dessertCount = count.get(0);
         int mainCount = count.get(1);
 
-        isD_Day(input);
-        isWeekDay(input, dessertCount);
-        isWeekend(input, mainCount);
-        isSpecial(input);
-        isGive(order);
+        judgeSales(input,mainCount,dessertCount,order);
     }
-
-    public Map<Event, Integer> getSale() {
-        return this.sale;
-    }
-
-    public void calculateSum() {
-        int sum = 0;
-        for (Event i : sale.keySet()) {
-            sum += sale.get(i);
-        }
-        this.saleSum = sum;
-    }
-
-    public int getSaleSum() {
-        return this.saleSum;
-    }
-
 
     private List<Integer> countOrder(Map<Menu, String> order) {
         int dessertCount = 0;
@@ -63,8 +42,7 @@ public class Sales {
             dessertCount += countDessert(i);
             mainCount += countMainDish(i);
         }
-        List<Integer> list = new ArrayList<>(Arrays.asList(dessertCount, mainCount));
-        return list;
+        return new ArrayList<>(Arrays.asList(dessertCount, mainCount));
     }
 
     private int countDessert(Menu i) {
@@ -127,11 +105,10 @@ public class Sales {
     }
 
     private void isGive(Order order) {
-        int orderSum = order.getSum();
+        int orderSum = Sum.calculateOrderSum(order.getOrder());
         int giftPrice = Event.GIVE.getBenefit();
         if (orderSum > GIFT_CRITERIA) {
-            int giftNum = orderSum / GIFT_CRITERIA;
-            sale.put(Event.GIVE, giftNum * giftPrice);
+            sale.put(Event.GIVE, giftPrice);
         }
     }
 
