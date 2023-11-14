@@ -55,14 +55,6 @@ public class EventPlanner {
         outputView.showEventBadge(badge);
     }
 
-    private int judgeGive() {
-        Map<Event, Integer> sale = sales.getSale();
-        int giftPrice = Event.GIVE.getBenefit();
-        if (sale.get(Event.GIVE) != null) {
-            return sale.get(Event.GIVE) / giftPrice;
-        }
-        return 0;
-    }
         Badge badge= new Badge(saleSum);
         String badgeGrade = badge.getBadgeGrade();
 

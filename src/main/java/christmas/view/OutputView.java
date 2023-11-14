@@ -30,11 +30,21 @@ public class OutputView {
 
     public void showGiveBanner(int give) {
         System.out.println("\n<증정 메뉴>");
+        int give = judgeGive(sales);
         if (give > 0) {
             System.out.println("샴페인 " + give + "개");
             return;
         }
         System.out.println("없음");
+    }
+
+    private int judgeGive(Sales sales) {
+        Map<Event, Integer> sale = sales.getSale();
+        int giftPrice = Event.GIVE.getBenefit();
+        if (sale.get(Event.GIVE) != null) {
+            return sale.get(Event.GIVE) / giftPrice;
+        }
+        return 0;
     }
 
     public void showBenefitBanner(Map<Event, Integer> sale) {
