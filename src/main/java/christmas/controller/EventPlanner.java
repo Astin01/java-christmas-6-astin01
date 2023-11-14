@@ -1,5 +1,6 @@
 package christmas.controller;
 
+import christmas.model.Badge;
 import christmas.model.Event;
 import christmas.model.Order;
 import christmas.model.Sales;
@@ -9,10 +10,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class EventPlanner {
-    private static final int BADGE_CRITERIA_STAR = 5_000;
-    private static final int BADGE_CRITERIA_TREE = 10_000;
-    private static final int BADGE_CRITERIA_SANTA = 20_000;
-
     InputView inputView = new InputView();
     OutputView outputView = new OutputView();
     Order order;
@@ -66,6 +63,8 @@ public class EventPlanner {
         }
         return 0;
     }
+        Badge badge= new Badge(saleSum);
+        String badgeGrade = badge.getBadgeGrade();
 
     private int calculateTotalSum(int saleSum, int sum) {
         Map<Event, Integer> sale = sales.getSale();
@@ -75,17 +74,6 @@ public class EventPlanner {
         return sum - saleSum;
     }
 
-    private String judgeBadge(int saleSum) {
-        if (saleSum >= BADGE_CRITERIA_SANTA) {
-            return "산타";
-        }
-        if (saleSum >= BADGE_CRITERIA_TREE) {
-            return "트리";
-        }
-        if (saleSum >= BADGE_CRITERIA_STAR) {
-            return "별";
-        }
-        return "없음";
     }
 
 }
