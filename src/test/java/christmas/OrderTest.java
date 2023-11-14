@@ -3,6 +3,7 @@ package christmas;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import christmas.model.Order;
+import christmas.util.Sum;
 import java.util.HashMap;
 import org.junit.jupiter.api.Test;
 
@@ -13,9 +14,8 @@ public class OrderTest {
         input.put("타파스", "1");
         input.put("제로콜라", "2");
         Order menu = new Order(input);
-        menu.calculateSum();
 
-        int sum = menu.getSum();
+        int sum =Sum.calculateOrderSum(menu.getOrder());
 
         assertEquals(sum, 11500);
 

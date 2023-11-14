@@ -11,22 +11,11 @@ import java.util.Objects;
 
 public class Order {
     private final Map<Menu, String> order = new EnumMap<>(Menu.class);
-    private int orderSum;
 
     public Order(HashMap<String, String> input) {
         for (String i : input.keySet()) {
             putMenu(i, input.get(i));
         }
-    }
-
-    public void calculateSum() {
-        int sum = 0;
-        for (Menu i : order.keySet()) {
-            int price = i.getPrice();
-            int menuPrice = price * parseInt(order.get(i));
-            sum += menuPrice;
-        }
-        this.orderSum = sum;
     }
 
     private void putMenu(String menu, String count) {
@@ -46,8 +35,5 @@ public class Order {
         return this.order;
     }
 
-    public int getSum() {
-        return this.orderSum;
-    }
 
 }
