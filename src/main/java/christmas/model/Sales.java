@@ -83,6 +83,14 @@ public class Sales {
         return 0;
     }
 
+    private void judgeSales(int input, int mainCount, int dessertCount,Order order){
+        isD_Day(input);
+        isWeekDay(input, dessertCount);
+        isWeekend(input, mainCount);
+        isSpecial(input);
+        isGive(order);
+    }
+
     private void isD_Day(int day) {
         if (day <= D_DAY_CRITERIA) {
             int benefit = Event.D_DAY.getBenefit();
@@ -126,4 +134,9 @@ public class Sales {
             sale.put(Event.GIVE, giftNum * giftPrice);
         }
     }
+
+    public Map<Event, Integer> getSale() {
+        return this.sale;
+    }
+
 }
