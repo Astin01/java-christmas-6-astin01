@@ -28,8 +28,7 @@ public class EventPlanner {
     public void initPlanner() {
         outputView.showStartBanner();
         String date = inputView.readDate();
-        String[] menu = inputView.readMenu();
-        putInput(menu);
+        HashMap<String, String> menu = inputView.readMenu();
 
         order = new Order(menuInput);
         order.calculateSum();
@@ -89,9 +88,4 @@ public class EventPlanner {
         return "없음";
     }
 
-    private void putInput(String[] menu) {
-        for (int i = 0; i < menu.length; i += 2) {
-            menuInput.put(menu[i], menu[i + 1]);
-        }
-    }
 }
