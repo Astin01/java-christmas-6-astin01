@@ -4,6 +4,7 @@ import camp.nextstep.edu.missionutils.Console;
 import christmas.model.Menu;
 import christmas.model.MenuGroup;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
@@ -31,22 +32,18 @@ public class InputView {
         }
     }
 
-    public String[] readMenu() {
+    public HashMap<String, String> readMenu() {
         System.out.println("주문하실 메뉴를 메뉴와 개수를 알려 주세요. (e.g. 해산물파스타-2,레드와인-1,초코케이크-1)");
         String[] menu;
         HashMap<String, String> menuInput = new HashMap<>();
         try {
             menu = Console.readLine().split("[,\\-]");
-            menuCheck(menu);
-            countCheck(menu);
-            menuDupCheck(menu);
-            checkOnlyDrink(menu);
+            validateMenu(menu);
             putMenuInput(menu,menuInput);
         } catch (IllegalArgumentException error) {
             System.out.println("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
             readMenu();
         }
-        return menu;
         return menuInput;
     }
 
@@ -55,6 +52,11 @@ public class InputView {
             menuInput.put(menu[i], menu[i + 1]);
         }
     }
+    private void validateMenu(String[] menu){
+        menuCheck(menu);
+        countCheck(menu);
+        menuDupCheck(menu);
+        checkOnlyDrink(menu);
     }
 
     private void menuCheck(String[] menu) {
