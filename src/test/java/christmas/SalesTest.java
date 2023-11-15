@@ -13,36 +13,43 @@ import org.junit.jupiter.api.Test;
 
 public class SalesTest {
     @Test
-    void saleListTest() {
-        String inputDate = "25";
-        HashMap<String, String> input = new HashMap<String, String>();
-        input.put("타파스", "1");
-        input.put("제로콜라", "2");
-        Order menu = new Order(input);
+    void 모든_세일_혜택받았을때_각_세일금액_테스트() {
+        String inputDate = "3";
+        HashMap<String, String> input = new HashMap<>() {{
+            put("티본스테이크", "1");
+            put("바비큐립", "1");
+            put("초코케이크", "2");
+            put("제로콜라", "1");
 
+        }};
+        Order menu = new Order(input);
         Sales sale = new Sales(inputDate, menu);
         Map<Event, Integer> saleList = sale.getSale();
 
-
-        int d_Day = saleList.get(Event.D_DAY);
-        int special = saleList.get(Event.SPECIAL);
         assertAll(
-                () -> assertEquals(d_Day, 3400),
-                () -> assertEquals(special, 1000)
+                () -> assertEquals(saleList.get(Event.D_DAY), 1200),
+                () -> assertEquals(saleList.get(Event.WEEKEND), 4046),
+                () -> assertEquals(saleList.get(Event.SPECIAL), 1000),
+                () -> assertEquals(saleList.get(Event.GIVE), 25_000)
         );
     }
 
     @Test
-    void totalSaleTest() {
-        String inputDate = "25";
-        HashMap<String, String> input = new HashMap<String, String>();
-        input.put("타파스", "1");
-        input.put("제로콜라", "2");
+    void 모든_세일_혜택받았을때_전체_세일금액_테스트() {
+        String inputDate = "3";
+        HashMap<String, String> input = new HashMap<>() {{
+            put("티본스테이크", "1");
+            put("바비큐립", "1");
+            put("초코케이크", "2");
+            put("제로콜라", "1");
+
+        }};
         Order menu = new Order(input);
         Sales sale = new Sales(inputDate, menu);
 
         int sum = Sum.calculateSaleSum(sale.getSale());
 
-        assertEquals(sum, 4400);
+        assertEquals(sum, 31_246);
     }
+
 }
