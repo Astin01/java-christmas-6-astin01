@@ -74,12 +74,21 @@ public class InputView {
         for (int i = 1; i < menu.length; i += 2) {
             int menuCount = Integer.parseInt(menu[i]);
             totalCount += menuCount;
-            if (menuCount < MENU_MIN_COUNT) {
-                throw new IllegalArgumentException();
-            }
-            if (totalCount > TOTAL_MENU_MAX_COUNT) {
-                throw new IllegalArgumentException();
-            }
+
+            minCountCheck(menuCount);
+        }
+        maxCountCheck(totalCount);
+    }
+
+    private void minCountCheck(int menuCount) {
+        if (menuCount < MENU_MIN_COUNT) {
+            throw new IllegalArgumentException();
+        }
+    }
+
+    private void maxCountCheck(int totalCount) {
+        if (totalCount > TOTAL_MENU_MAX_COUNT) {
+            throw new IllegalArgumentException();
         }
     }
 
@@ -105,7 +114,11 @@ public class InputView {
                 count += 1;
             }
         }
-        if (count == input.length / 2) {
+        checkDrinkCount(drinkCount, input.length / 2);
+    }
+
+    private void checkDrinkCount(int drinkCount, int menuCount) {
+        if (drinkCount == menuCount) {
             throw new IllegalArgumentException();
         }
     }
