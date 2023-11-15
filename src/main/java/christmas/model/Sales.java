@@ -32,36 +32,36 @@ public class Sales {
         int dessertCount = count.get(0);
         int mainCount = count.get(1);
 
-        judgeSales(input,mainCount,dessertCount,order);
+        judgeSales(input, mainCount, dessertCount, order);
     }
 
     private List<Integer> countOrder(Map<Menu, String> order) {
         int dessertCount = 0;
         int mainCount = 0;
         for (Menu i : order.keySet()) {
-            dessertCount += countDessert(i);
-            mainCount += countMainDish(i);
+            dessertCount += countDessert(i, order);
+            mainCount += countMainDish(i, order);
         }
         return new ArrayList<>(Arrays.asList(dessertCount, mainCount));
     }
 
-    private int countDessert(Menu i) {
+    private int countDessert(Menu i, Map<Menu, String> order) {
         MenuGroup menu = MenuGroup.findByMenu(i);
         if (menu.getMenuTitle().equals("디저트")) {
-            return 1;
+            return Integer.parseInt(order.get(i));
         }
         return 0;
     }
 
-    private int countMainDish(Menu i) {
+    private int countMainDish(Menu i, Map<Menu, String> order) {
         MenuGroup menu = MenuGroup.findByMenu(i);
         if (menu.getMenuTitle().equals("메인메뉴")) {
-            return 1;
+            return Integer.parseInt(order.get(i));
         }
         return 0;
     }
 
-    private void judgeSales(int input, int mainCount, int dessertCount,Order order){
+    private void judgeSales(int input, int mainCount, int dessertCount, Order order) {
         isD_Day(input);
         isWeekDay(input, dessertCount);
         isWeekend(input, mainCount);
@@ -78,7 +78,7 @@ public class Sales {
     }
 
     private void isWeekDay(int input, int dessertCount) {
-        if (input % 7 != 2 && input % 7 != 3) {
+        if (input % 7 != 1 && input % 7 != 2) {
             int benefit = Event.WEEKDAY.getBenefit();
             benefit *= dessertCount;
             if (dessertCount > 0) {
@@ -88,7 +88,7 @@ public class Sales {
     }
 
     private void isWeekend(int input, int mainCount) {
-        if (input % 7 == 2 || input % 7 == 3) {
+        if (input % 7 == 1 || input % 7 == 2) {
             int benefit = Event.WEEKEND.getBenefit();
             benefit *= mainCount;
             if (mainCount > 0) {
