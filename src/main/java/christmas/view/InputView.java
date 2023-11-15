@@ -74,12 +74,21 @@ public class InputView {
         for (int i = 1; i < menu.length; i += 2) {
             int menuCount = Integer.parseInt(menu[i]);
             totalCount += menuCount;
-            if (menuCount < MENU_MIN_COUNT) {
-                throw new IllegalArgumentException();
-            }
-            if (totalCount > TOTAL_MENU_MAX_COUNT) {
-                throw new IllegalArgumentException();
-            }
+
+            minCountCheck(menuCount);
+        }
+        maxCountCheck(totalCount);
+    }
+
+    private void minCountCheck(int menuCount) {
+        if (menuCount < MENU_MIN_COUNT) {
+            throw new IllegalArgumentException();
+        }
+    }
+
+    private void maxCountCheck(int totalCount) {
+        if (totalCount > TOTAL_MENU_MAX_COUNT) {
+            throw new IllegalArgumentException();
         }
     }
 
@@ -96,16 +105,20 @@ public class InputView {
 
     private void checkOnlyDrink(String[] input) {
         List<Menu> menuList = MenuGroup.DRINK.getMenuList();
-        int count = 0;
+        int drinkCount = 0;
         for (int i = 0; i < input.length; i += 2) {
             int finalI = i;
             boolean match = menuList.stream()
                     .anyMatch(menu -> Objects.equals(menu.getName(), input[finalI]));
             if (match) {
-                count += 1;
+                drinkCount += 1;
             }
         }
-        if (count == input.length / 2) {
+        checkDrinkCount(drinkCount, input.length / 2);
+    }
+
+    private void checkDrinkCount(int drinkCount, int menuCount) {
+        if (drinkCount == menuCount) {
             throw new IllegalArgumentException();
         }
     }
