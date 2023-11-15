@@ -14,7 +14,7 @@ public class Sales {
     private static final int D_DAY_CRITERIA = 26;
     private static final int D_DAY_BENEFIT = 100;
     private static final int CHRISTMAS = 25;
-    private static final int GIFT_CRITERIA = 12_000;
+    private static final int GIFT_CRITERIA = 12_0000;
 
     private final Map<Event, Integer> sale = new EnumMap<>(Event.class);
 
