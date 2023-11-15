@@ -15,7 +15,7 @@ public class OrderTest {
         input.put("제로콜라", "2");
         Order menu = new Order(input);
 
-        int sum =Sum.calculateOrderSum(menu.getOrder());
+        int sum = Sum.calculateOrderSum(menu.getOrder());
 
         assertEquals(sum, 11500);
     }

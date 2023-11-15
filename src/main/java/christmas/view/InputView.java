@@ -39,7 +39,7 @@ public class InputView {
         try {
             menu = Console.readLine().split("[,\\-]");
             validateMenu(menu);
-            putMenuInput(menu,menuInput);
+            putMenuInput(menu, menuInput);
         } catch (IllegalArgumentException error) {
             System.out.println("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
             readMenu();
@@ -47,12 +47,13 @@ public class InputView {
         return menuInput;
     }
 
-    private void putMenuInput(String[] menu,HashMap<String, String> menuInput) {
+    private void putMenuInput(String[] menu, HashMap<String, String> menuInput) {
         for (int i = 0; i < menu.length; i += 2) {
             menuInput.put(menu[i], menu[i + 1]);
         }
     }
-    private void validateMenu(String[] menu){
+
+    private void validateMenu(String[] menu) {
         menuCheck(menu);
         countCheck(menu);
         menuDupCheck(menu);

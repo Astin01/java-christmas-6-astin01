@@ -7,7 +7,7 @@ public class Badge {
 
     String badgeGrade;
 
-    public Badge(int saleSum){
+    public Badge(int saleSum) {
         this.badgeGrade = judgeBadge(saleSum);
     }
 
@@ -24,7 +24,7 @@ public class Badge {
         return "없음";
     }
 
-    public String getBadgeGrade(){
+    public String getBadgeGrade() {
         return badgeGrade;
     }
 }
