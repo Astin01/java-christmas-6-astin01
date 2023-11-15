@@ -39,7 +39,7 @@ public class InputView {
         try {
             menu = Console.readLine().split("[,\\-]");
             validateMenu(menu);
-            putMenuInput(menu,menuInput);
+            putMenuInput(menu, menuInput);
         } catch (IllegalArgumentException error) {
             System.out.println("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
             readMenu();
@@ -47,12 +47,13 @@ public class InputView {
         return menuInput;
     }
 
-    private void putMenuInput(String[] menu,HashMap<String, String> menuInput) {
+    private void putMenuInput(String[] menu, HashMap<String, String> menuInput) {
         for (int i = 0; i < menu.length; i += 2) {
             menuInput.put(menu[i], menu[i + 1]);
         }
     }
-    private void validateMenu(String[] menu){
+
+    private void validateMenu(String[] menu) {
         menuCheck(menu);
         countCheck(menu);
         menuDupCheck(menu);
@@ -94,24 +95,25 @@ public class InputView {
 
     private void menuDupCheck(String[] input) {
         HashSet<String> setInput = new HashSet<>();
+        int menuCount = input.length / 2;
 
         for (int i = 0; i < input.length; i += 2) {
             setInput.add(input[i]);
         }
-        if (input.length / 2 != setInput.size()) {
+        if (menuCount != setInput.size()) {
             throw new IllegalArgumentException();
         }
     }
 
     private void checkOnlyDrink(String[] input) {
         List<Menu> menuList = MenuGroup.DRINK.getMenuList();
-        int count = 0;
+        int drinkCount = 0;
         for (int i = 0; i < input.length; i += 2) {
             int finalI = i;
             boolean match = menuList.stream()
                     .anyMatch(menu -> Objects.equals(menu.getName(), input[finalI]));
             if (match) {
-                count += 1;
+                drinkCount += 1;
             }
         }
         checkDrinkCount(drinkCount, input.length / 2);

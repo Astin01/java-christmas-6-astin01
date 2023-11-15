@@ -46,9 +46,9 @@ public class EventPlanner {
     public void endPlanner() {
         int orderSum = Sum.calculateOrderSum(order.getOrder());
         int saleSum = Sum.calculateSaleSum(sales.getSale());
-        int totalSum = Sum.calculateTotalOrderSum(orderSum,saleSum,sales);
+        int totalSum = Sum.calculateTotalOrderSum(orderSum, saleSum, sales);
 
-        Badge badge= new Badge(saleSum);
+        Badge badge = new Badge(saleSum);
         String badgeGrade = badge.getBadgeGrade();
 
         outputView.showTotalBenefit(saleSum);

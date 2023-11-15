@@ -36,4 +36,4 @@ public class Sum {
         }
         return orderSum - saleSum;
     }
-    }
+}

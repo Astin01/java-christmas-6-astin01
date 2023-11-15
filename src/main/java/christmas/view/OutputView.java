@@ -11,6 +11,7 @@ import java.util.Map;
 
 public class OutputView {
     DecimalFormat df = new DecimalFormat("###,###");
+
     public void showStartBanner() {
         System.out.println("안녕하세요! 우테코 식당 12월 이벤트 플래너입니다.");
     }
@@ -54,18 +55,18 @@ public class OutputView {
     public void showBenefitBanner(Map<Event, Integer> sale) {
         System.out.println("\n<혜택 내역>");
         Arrays.stream(Event.values())
-                .forEach(event -> judgeBenefitBanner(sale,event));
-        if(sale.isEmpty()){
+                .forEach(event -> judgeBenefitBanner(sale, event));
+        if (sale.isEmpty()) {
             System.out.println("없음");
         }
     }
 
-    private void judgeBenefitBanner(Map<Event, Integer> sale,Event event) {
-        if(sale.containsKey(event)){
+    private void judgeBenefitBanner(Map<Event, Integer> sale, Event event) {
+        if (sale.containsKey(event)) {
             String eventName = event.getName();
             int salePrice = sale.get(event);
             String convertSalePrice = df.format(salePrice);
-            System.out.println(eventName+": -"+convertSalePrice+"원");
+            System.out.println(eventName + ": -" + convertSalePrice + "원");
         }
     }
 
